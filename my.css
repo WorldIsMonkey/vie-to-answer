@@ -54,3 +54,6 @@ table {
 	word-wrap: break-word;
 	font-size: 64px;
 }
+.margin {
+	margin: 10px;
+}

@@ -8,7 +8,7 @@
 	$config = json_decode(file_get_contents("config.db"),true);
 	$auth = auth($config);
 	if (!$auth) {
-		header('WWW-Authenticate: Basic realm="Please Login"');
+		header('WWW-Authenticate: Basic realm="Default username: admin Default password: admin"');
 	}
 	else {
 		//处理操作
@@ -49,6 +49,7 @@
 <body>
 	<h1>云抢答系统-后台管理</h1>
 	<h3>当前用户：<?php if ($auth) echo $_SERVER['PHP_AUTH_USER']; else echo "Error 401 Unauthorized"; ?></h3>
+	<p>默认用户名：admin<br>默认密码：admin</p>
 	<hr>
 	<h2>用户管理</h2>
 	<form name="adduser" action="" method="get" autocomplete="off">
