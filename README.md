@@ -44,3 +44,28 @@ server {
     }
 }
 ```
+自动配置脚本：
+```
+apt install -y git nginx php7.0-common php7.0-fpm php7.0-cli php7.0-json
+cd /var/www/
+git clone https://github.com/WorldIsMonkey/vie-to-answer.git
+cd vie-to-answer
+php init.php
+chown www-data:www-data /var/www/vie-to-answer/ -R
+config="server {
+    listen 80;
+    listen [::]:80;
+    server_name qiangda.example.com;
+    root /var/www/vie-to-answer;
+    index index.html;
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+    }
+    location ~ ^/(?:\.db){
+        deny all;
+    }
+}"
+echo -e $config > /etc/nginx/sites-enabled/default
+reboot
+```
